@@ -31,6 +31,16 @@ if (isset($_POST["register"])) {
     if (!isset($email) || !isset($password) || !isset($confirm)) {
         $isValid = false;
     }
+    if (strlen($password) > 60 || strlen($password) < 3){
+	flash("Password must be between 3 and 60 characters");
+	$isValid = false;
+        }
+	
+    if (strlen($username) > 60 || strlen($username) < 5){
+        flash("Usernames must be between 5 and 60 characters");
+        $isValid = false;
+        }
+
     //TODO other validation as desired, remember this is the last line of defense
     if ($isValid) {
         $hash = password_hash($password, PASSWORD_BCRYPT);
