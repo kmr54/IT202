@@ -3,6 +3,7 @@ session_start();//we can start our session here so we don't need to worry about 
 require_once(__DIR__ . "/db.php");
 //this file will contain any helpful functions we create
 //I have provided two for you
+//comment to commit
 function is_logged_in() {
     return isset($_SESSION["user"]);
 }
