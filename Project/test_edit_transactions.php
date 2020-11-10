@@ -80,8 +80,12 @@ $eggs = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php endforeach; ?>
         </select>
 ///////////////////ACCOUNT DESTINATION ID////////////
-        <label>Action Type</label>
-        <input type="action_type" min="1" name="action_type"/>
+	<label>Action Type</label>
+        <select name="type">
+                <option value="0">Deposit</option>
+                <option value="1">Withdrawal</option>
+                <option value="2">Transfer</option>
+        </select>        
 	<label>Memo</label>
         <input type="text" name="memo"/>
         <input type="submit" name="save" value="Update"/>
