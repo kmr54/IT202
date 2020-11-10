@@ -10,8 +10,12 @@ if (!has_role("Admin")) {
     <form method="POST">
         <label>Amount</label>
         <input name="amount" placeholder="Amount"/>
-        <label>Action Type</label>
-        <input type="action_type" min="1" name="action_type"/>
+	<label>Action Type</label>
+	<select name="action_type">
+		<option value="0">Deposit</option>
+		<option value="1">Withdrawal</option>
+		<option value="2">Transfer</option>
+	</select>
         <label>Memo</label>
         <input type="text" name="memo"/>
         <input type="submit" name="save" value="Create"/>
@@ -21,18 +25,18 @@ if (!has_role("Admin")) {
 if (isset($_POST["save"])) {
     //TODO add proper validation/checks
     $amount = $_POST["amount"];
-    $type = $_POST["action_type"];
+    $action_type = $_POST["action_type"];
     $memo = $_POST["memo"];
-    $total = $_POST["expected_total"];
-    $user = get_user_id();
+    $expected_total = $_POST["expected_total"];
+    $user_id = get_user_id();
     $db = getDB();
-    $stmt = $db->prepare("INSERT INTO Transactions (amount, action_type, memo, total, user_id) VALUES(:amount, :type, :memo,:total,:user)");
+    $stmt = $db->prepare("INSERT INTO Transactions (amount, action_type, memo, expected_total, user_id) VALUES(:amount, :action_type, :memo,:expected_total,:user)");
     $r = $stmt->execute([
         ":amount" => $amount,
-        ":type" => $type,
+        ":action_type" => $action_type,
         ":memo" => $memo,
-        ":total" => $total,
-        ":user" => $user
+        ":expected_total" => $expected_total,
+        ":user" => $user_id
     ]);
     if ($r) {
         flash("Created successfully with id: " . $db->lastInsertId());
