@@ -8,14 +8,26 @@ if (!has_role("Admin")) {
 ?>
     <h3>Create Transaction</h3>
     <form method="POST">
+        <label>Account Source</label>
+            <select name = "act_src_id">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+        <label>Account Destination</label>
+        <select name = "act_dest_id">
+            <option value="1">1</option>
+	    <option value="2">2</option>
+	    <option value="3">3</option>
+        </select>
         <label>Amount</label>
-        <input name="amount" placeholder="Amount"/>
-	<label>Action Type</label>
-	<select name="action_type">
-		<option value="0">Deposit</option>
-		<option value="1">Withdrawal</option>
-		<option value="2">Transfer</option>
-	</select>
+        <input type="number" name="amount"/>
+        <label>Action Type</label>
+        <select name="action_type">
+            <option value="Deposit">Deposit</option>
+            <option value="Withdrawal">Withdrawal</option>
+            <option value="Transfer">Transfer</option>
+        </select>
         <label>Memo</label>
         <input type="text" name="memo"/>
         <input type="submit" name="save" value="Create"/>
@@ -24,19 +36,21 @@ if (!has_role("Admin")) {
 <?php
 if (isset($_POST["save"])) {
     //TODO add proper validation/checks
+    $act_src_id = $_POST["act_src_id"];
+    $act_dest_id = $_POST["act_dest_id"];
     $amount = $_POST["amount"];
     $action_type = $_POST["action_type"];
     $memo = $_POST["memo"];
-    $expected_total = $_POST["expected_total"];
-    $user_id = get_user_id();
+    //$user_id = get_user_id();
     $db = getDB();
-    $stmt = $db->prepare("INSERT INTO Transactions (amount, action_type, memo, expected_total, user_id) VALUES(:amount, :action_type, :memo,:expected_total,:user)");
+    $stmt = $db->prepare("INSERT INTO Transactions (act_src_id, act_dest_id, amount, action_type, memo) 
+VALUES(:act_src_id, :act_dest_id, :amount, :action_type, :memo,)");
     $r = $stmt->execute([
-        ":amount" => $amount,
+        ":act_src_id" => $act_src_id,
+        ":act_dest_id" => $act_dest_id,
         ":action_type" => $action_type,
         ":memo" => $memo,
-        ":expected_total" => $expected_total,
-        ":user" => $user_id
+	"amount" => $amount
     ]);
     if ($r) {
         flash("Created successfully with id: " . $db->lastInsertId());
