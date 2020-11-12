@@ -25,8 +25,7 @@ if (isset($_POST["save"])) {
     $dest = $_POST["act_dest_id"];
     $type = $_POST["action_type"];
     $memo = $_POST["memo"];
-    $total = $_POST["expected_total"];
-    $user = get_user_id();
+    //$total = $_POST["expected_total"];
     $db = getDB();
     if (isset($id)) {
         $stmt = $db->prepare("UPDATE Transactions set amount=:amount, act_src_id=:source, act_dest_id=:dest, action_type=:type, memo=:memo, total=:total where id=:id");
