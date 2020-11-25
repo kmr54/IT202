@@ -11,10 +11,13 @@ require_once(__DIR__ . "/../lib/helpers.php");
             <li><a href="register.php">Register</a></li>
         <?php endif; ?>
         <?php if (has_role("Admin")): ?>
-            <li><a href="test_create_account.php">Create Account</a></li>
-            <li><a href="test_list_account.php">View Accounts</a></li>
-            <li><a href="test_create_transactions.php">Create Transaction</a></li>
-            <li><a href="test_list_transactions.php">View Transaction</a></li>
+            <li><a href="/~kmr54/IT202/Project/test/test_create_account.php">Create Account</a></li>
+            <li><a href="/~kmr54/IT202/Project/test/test_list_account.php">View Accounts</a></li>
+            <li><a href="/~kmr54/IT202/Project/test/test_create_transactions.php">Create Transaction</a></li>
+            <li><a href="/~kmr54/IT202/Project/test/test_list_transactions.php">View Transaction</a></li>
+	    <li><a href="#">Deposit</a></li>
+	    <li><a href="#">Withdraw</a></li>
+	    <li><a href="#">Transfer</a></li>
         <?php endif; ?>
         <?php if (is_logged_in()): ?>
             <li><a href="profile.php">Profile</a></li>
