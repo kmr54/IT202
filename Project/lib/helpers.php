@@ -3,7 +3,6 @@ session_start();//we can start our session here so we don't need to worry about 
 require_once(__DIR__ . "/db.php");
 //this file will contain any helpful functions we create
 //I have provided two for you
-//comment to commit
 function is_logged_in() {
     return isset($_SESSION["user"]);
 }
@@ -70,4 +69,22 @@ function getMessages() {
 }
 
 //end flash
+
+function getType($n) {
+    switch ($n) {
+        case 0:
+            echo "Checking";
+            break;
+        case 1:
+            echo "Savings";
+            break;
+        case 2:
+            echo "Loan";
+            break;
+        default:
+            echo "Unsupported state: " . safer_echo($n);
+            break;
+    }
+}
+
 ?>
