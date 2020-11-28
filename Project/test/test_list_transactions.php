@@ -17,6 +17,9 @@ if (isset($_POST["search"]) && !empty($query)) {
     $stmt = $db->prepare("SELECT history.id, history.act_src_id, history.act_dest_id, history.amount, history.action_type, history.memo, Users.username 
 from Transactions as history JOIN Users on history.user_id = Users.id LEFT JOIN Accounts as account on history.act_src_id = account.id WHERE history.amount like :q LIMIT 10");
     $r = $stmt->execute([":q" => $query]);
+=======
+    $stmt = $db->prepare("SELECT history.id,history.amount,account.amount as account, Users.username from Transactions as history JOIN Users on history.user_id = Users.id LEFT JOIN Accounts as account on history.act_src_id = account.id WHERE history.amount like :q LIMIT 10");
+    $r = $stmt->execute([":q" => "%$query%"]);
     if ($r) {
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -36,6 +39,7 @@ from Transactions as history JOIN Users on history.user_id = Users.id LEFT JOIN 
             <?php foreach ($results as $r): ?>
                 <div class="list-group-item">
 		    <div>
+                    <div>
                         <div>Amount:</div>
                         <div><?php safer_echo($r["amount"]); ?></div>
                     </div>
@@ -54,6 +58,8 @@ from Transactions as history JOIN Users on history.user_id = Users.id LEFT JOIN 
                     <div>
                         <div>Memo:</div>
                         <div><?php safer_echo($r["memo"]); ?></div>
+                        <div>Account:</div>
+                        <div><?php safer_echo($r["account"]); ?></div>
                     </div>
                     <div>
                         <div>Owner:</div>
@@ -62,6 +68,8 @@ from Transactions as history JOIN Users on history.user_id = Users.id LEFT JOIN 
                     <div>
                         <a type="button" href="test_edit_transaction.php?id=<?php safer_echo($r['id']); ?>">Edit</a>
                         <a type="button" href="test_view_transaction.php?id=<?php safer_echo($r['id']); ?>">View</a>
+                        <a type="button" href="test_edit_transactions.php?id=<?php safer_echo($r['id']); ?>">Edit</a>
+                        <a type="button" href="test_view_transactions.php?id=<?php safer_echo($r['id']); ?>">View</a>
                     </div>
                 </div>
             <?php endforeach; ?>
