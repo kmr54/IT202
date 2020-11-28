@@ -17,7 +17,7 @@ if (isset($_GET["id"])) {
 $result = [];
 if (isset($id)) {
     $db = getDB();
-    $stmt = $db->prepare("SELECT history.id,history.amount,history.action_type, Users.username, Account.amount as account FROM Transactions as history JOIN Users on history.user_id = Users.id LEFT JOIN Accounts Account on Account.id = history.act_src_id where history.id = :id");
+    $stmt = $db->prepare("SELECT Accounts.id,account_number,account_type,opened_date,last_updated,balance, user_id, Users.username FROM Accounts as Accounts JOIN Users on Accounts.user_id = Users.id where Accounts.id = :id");
     $r = $stmt->execute([":id" => $id]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     if (!$result) {
@@ -26,17 +26,19 @@ if (isset($id)) {
     }
 }
 ?>
-    <h3>View Transactions</h3>
 <?php if (isset($result) && !empty($result)): ?>
     <div class="card">
         <div class="card-title">
-            <?php safer_echo($result["amount"]); ?>
+            <?php safer_echo($result["name"]); ?>
         </div>
         <div class="card-body">
             <div>
                 <p>Stats</p>
-                <div>Type: <?php safer_echo($result["action_type"]); ?></div>
-                <div>Account: <?php safer_echo($result["account"]); ?></div>
+                <div>Account Number: <?php safer_echo($result["account_number"]); ?></div>
+                <div>Account Type: <?php getTypes($result["account_type"]); ?></div>
+		<div>Balance: <?php safer_echo($result["balance"]); ?></div>
+                <div>Opened Date: <?php safer_echo($result["opened_date"]); ?></div>
+		<div>Last Updated: <?php safer_echo($result["last_updated"]); ?></div>
                 <div>Owned by: <?php safer_echo($result["username"]); ?></div>
             </div>
         </div>

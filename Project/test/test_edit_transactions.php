@@ -1,4 +1,3 @@
-
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
 <?php
 if (!has_role("Admin")) {
@@ -17,10 +16,10 @@ if (isset($_GET["id"])) {
 //saving
 if (isset($_POST["save"])) {
     //TODO add proper validation/checks
-    $act_src_id = $_POST["act_src_id"];
-    $act_dest_id = $_POST["act_dest_id"];
     $amount = $_POST["amount"];
-    $action_type = $_POST["action_type"];
+    $source = $_POST["act_src_id"];
+    $dest = $_POST["act_dest_id"];
+    $type = $_POST["action_type"];
     $memo = $_POST["memo"];
     $user_id = get_user_id();
     //$total = $_POST["expected_total"];
@@ -29,6 +28,9 @@ if (isset($_POST["save"])) {
         $stmt = $db->prepare("UPDATE Transactions set amount=:amount, act_src_id=:source, act_dest_id=:dest, action_type=:type, memo=:memo where id=:id");
         $r = $stmt->execute([
             ":amount" => $amount,
+            ":act_src_id" => $source,
+	    ":act_dest_id" => $dest,
+            ":action_type" => $type,
             ":source" => $source,
 	    ":dest" => $dest,
             ":type" => $type,
@@ -48,12 +50,51 @@ if (isset($_POST["save"])) {
     }
 }
 ?>
+
 <?php
 //fetching
 $result = [];
 if (isset($id)) {
     $id = $_GET["id"];
     $db = getDB();
+    $stmt = $db->prepare("SELECT * FROM Transactions where id = :id");
+    $r = $stmt->execute([":id" => $id]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+$db = getDB();
+$stmt = $db->prepare("SELECT id,name from Accounts LIMIT 10");
+$r = $stmt->execute();
+$accounts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+    <h3>Edit Transaction</h3>
+    <form method="POST">
+	<label>Amount</label>
+        <input type="number" name="amount" min="0" placeholder="0.00"/>
+        <label>Account Source</label>
+        <select name="act_src_id">
+            <?php foreach ($accounts as $account): ?>
+                <option value="<?php safer_echo($account["id"]); ?>"
+                ><?php safer_echo($account["account_number"]); ?></option>
+            <?php endforeach;?>
+        </select>
+        <label>Account Destination</label>
+        <select name="act_dest_id">
+            <?php foreach ($accounts as $account): ?>
+                <option value="<?php safer_echo($account["id"]); ?>"
+                ><?php safer_echo($account["account_number"]); ?></option>
+            <?php endforeach;?>
+        </select>
+        <label>Action Type</label>
+        <select name="action_type">
+            <option value="deposit">Deposit</option>
+            <option value="withdraw">Withdraw</option>
+            <option value="transfer">Transfer</option>
+        </select>
+        <label>Memo</label>
+        <input type="text" name="memo"/>
+        <input type="submit" name="save" value="Create"/>
     $stmt = $db->prepare("SELECT * Transactions where id = :id");
     $r = $stmt->execute([":id" => $id]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);

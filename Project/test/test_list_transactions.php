@@ -14,6 +14,10 @@ if (isset($_POST["query"])) {
 }
 if (isset($_POST["search"]) && !empty($query)) {
     $db = getDB();
+    $stmt = $db->prepare("SELECT history.id, history.act_src_id, history.act_dest_id, history.amount, history.action_type, history.memo, Users.username 
+from Transactions as history JOIN Users on history.user_id = Users.id LEFT JOIN Accounts as account on history.act_src_id = account.id WHERE history.amount like :q LIMIT 10");
+    $r = $stmt->execute([":q" => $query]);
+=======
     $stmt = $db->prepare("SELECT history.id,history.amount,account.amount as account, Users.username from Transactions as history JOIN Users on history.user_id = Users.id LEFT JOIN Accounts as account on history.act_src_id = account.id WHERE history.amount like :q LIMIT 10");
     $r = $stmt->execute([":q" => "%$query%"]);
     if ($r) {
@@ -34,11 +38,26 @@ if (isset($_POST["search"]) && !empty($query)) {
         <div class="list-group">
             <?php foreach ($results as $r): ?>
                 <div class="list-group-item">
+		    <div>
                     <div>
                         <div>Amount:</div>
                         <div><?php safer_echo($r["amount"]); ?></div>
                     </div>
                     <div>
+                        <div>Account Source:</div>
+                        <div><?php safer_echo($r["act_src_id"]); ?></div>
+                    </div>
+                    <div>
+                        <div>Account Destination:</div>
+                        <div><?php safer_echo($r["act_dest_id"]); ?></div>
+                    </div>
+                    <div>
+                        <div>Action Type:</div>
+                        <div><?php safer_echo($r["action_type"]); ?></div>
+                    </div>
+                    <div>
+                        <div>Memo:</div>
+                        <div><?php safer_echo($r["memo"]); ?></div>
                         <div>Account:</div>
                         <div><?php safer_echo($r["account"]); ?></div>
                     </div>
@@ -47,6 +66,8 @@ if (isset($_POST["search"]) && !empty($query)) {
                         <div><?php safer_echo($r["username"]); ?></div>
                     </div>
                     <div>
+                        <a type="button" href="test_edit_transaction.php?id=<?php safer_echo($r['id']); ?>">Edit</a>
+                        <a type="button" href="test_view_transaction.php?id=<?php safer_echo($r['id']); ?>">View</a>
                         <a type="button" href="test_edit_transactions.php?id=<?php safer_echo($r['id']); ?>">Edit</a>
                         <a type="button" href="test_view_transactions.php?id=<?php safer_echo($r['id']); ?>">View</a>
                     </div>
