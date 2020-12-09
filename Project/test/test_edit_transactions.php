@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0a84ff8a2e27299bdd2417269c8cc41b542fa315
+=======
+>>>>>>> 17f21803f16709531dc8e70508ea66ad9fdd13d0
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
 <?php
 if (!has_role("Admin")) {
@@ -16,24 +23,52 @@ if (isset($_GET["id"])) {
 //saving
 if (isset($_POST["save"])) {
     //TODO add proper validation/checks
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 17f21803f16709531dc8e70508ea66ad9fdd13d0
     $amount = $_POST["amount"];
     $source = $_POST["act_src_id"];
     $dest = $_POST["act_dest_id"];
     $type = $_POST["action_type"];
     $memo = $_POST["memo"];
+<<<<<<< HEAD
+=======
+    $act_src_id = $_POST["act_src_id"];
+    $act_dest_id = $_POST["act_dest_id"];
+    $amount = $_POST["amount"];
+    $action_type = $_POST["action_type"];
+    $memo = $_POST["memo"];
     $user_id = get_user_id();
     //$total = $_POST["expected_total"];
+>>>>>>> 0a84ff8a2e27299bdd2417269c8cc41b542fa315
+=======
+    $user_id = get_user_id();
+    //$total = $_POST["expected_total"];
+>>>>>>> 17f21803f16709531dc8e70508ea66ad9fdd13d0
     $db = getDB();
     if (isset($id)) {
         $stmt = $db->prepare("UPDATE Transactions set amount=:amount, act_src_id=:source, act_dest_id=:dest, action_type=:type, memo=:memo where id=:id");
         $r = $stmt->execute([
             ":amount" => $amount,
+<<<<<<< HEAD
+<<<<<<< HEAD
+            ":act_src_id" => $source,
+	    ":act_dest_id" => $dest,
+            ":action_type" => $type,
+=======
+            ":source" => $source,
+	    ":dest" => $dest,
+            ":type" => $type,
+>>>>>>> 0a84ff8a2e27299bdd2417269c8cc41b542fa315
+=======
             ":act_src_id" => $source,
 	    ":act_dest_id" => $dest,
             ":action_type" => $type,
             ":source" => $source,
 	    ":dest" => $dest,
             ":type" => $type,
+>>>>>>> 17f21803f16709531dc8e70508ea66ad9fdd13d0
             ":memo" => $memo,
             ":id" => $id
         ]);
@@ -44,19 +79,37 @@ if (isset($_POST["save"])) {
             $e = $stmt->errorInfo();
             flash("Error updating: " . var_export($e, true));
         }
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
     }
+>>>>>>> 0a84ff8a2e27299bdd2417269c8cc41b542fa315
+=======
+    }
+>>>>>>> 17f21803f16709531dc8e70508ea66ad9fdd13d0
     else {
         flash("ID isn't set, we need an ID in order to update");
     }
 }
 ?>
+<<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0a84ff8a2e27299bdd2417269c8cc41b542fa315
+=======
+
+>>>>>>> 17f21803f16709531dc8e70508ea66ad9fdd13d0
 <?php
 //fetching
 $result = [];
 if (isset($id)) {
     $id = $_GET["id"];
     $db = getDB();
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 17f21803f16709531dc8e70508ea66ad9fdd13d0
     $stmt = $db->prepare("SELECT * FROM Transactions where id = :id");
     $r = $stmt->execute([":id" => $id]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -95,6 +148,10 @@ $accounts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <label>Memo</label>
         <input type="text" name="memo"/>
         <input type="submit" name="save" value="Create"/>
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 17f21803f16709531dc8e70508ea66ad9fdd13d0
     $stmt = $db->prepare("SELECT * Transactions where id = :id");
     $r = $stmt->execute([":id" => $id]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -133,7 +190,18 @@ $eggs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	<label>Memo</label>
         <input type="text" name="memo"/>
         <input type="submit" name="save" value="Update"/>
+<<<<<<< HEAD
+>>>>>>> 0a84ff8a2e27299bdd2417269c8cc41b542fa315
+=======
+>>>>>>> 17f21803f16709531dc8e70508ea66ad9fdd13d0
     </form>
 
 
 <?php require(__DIR__ . "/partials/flash.php");
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+=======
+>>>>>>> 0a84ff8a2e27299bdd2417269c8cc41b542fa315
+=======
+>>>>>>> 17f21803f16709531dc8e70508ea66ad9fdd13d0

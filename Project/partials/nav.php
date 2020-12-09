@@ -3,6 +3,14 @@
 //we'll be including this on most/all pages so it's a good place to include anything else we want on those pages
 require_once(__DIR__ . "/../lib/helpers.php");
 ?>
+
+<header>
+	<img src = "Images/piggybank.jpg" alt="Piggy Bank" height="80">
+	<h1> <em class="shadow">Simple Bank</em> </h1>
+</header>
+
+
+
 <nav>
     <ul class="nav">
         <li><a href="home.php">Home</a></li>
