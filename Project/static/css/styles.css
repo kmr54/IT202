@@ -1,20 +1,20 @@
 /* design intentionally made horrible to see who doesn't change it*/
 body {
-    font-family: system;
+    font-family: Helvetica;
     font-size: 1.5em;
 }
 
 header{
-    border-bottom: solid;
+    border-bottom: solid 2px;
     border-bottom-color: #931420;
     padding-top: 1.5em;
     text-align: center;
     padding-bottom: 2em;
-    background: linear-gradient(30deg, #f6bb73 0%, #f6bb73 30%, white 50%, #f6bb73 80%, #f6bb73 100%);
+    background: linear-gradient(0deg, navy 0%, navy 30%, white 40%, navy 80%, navy 100%);
 }
 
 header img {
-    float: left;
+    float: center;
     padding: 0 3.75%;
 }
 
@@ -28,7 +28,7 @@ ul[class="nav"]{
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #026e02;
+    background-color:  black;
 }
 
 .nav > li {
@@ -44,7 +44,7 @@ ul[class="nav"]{
 }
 
 .nav > li a:hover {
-    background-color: #39ca40;
+    background-color: gray;
 }
 
 input, select {
@@ -59,7 +59,7 @@ input, select {
 
 input[type=submit] {
     width: 100%;
-    background-color: #026e02;
+    background-color:  black;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -92,3 +92,4 @@ input:nth-of-type(5) {
     margin-left: 25px !important;
     margin-right: 25px !important;
 }
+
