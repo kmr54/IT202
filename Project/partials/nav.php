@@ -5,7 +5,7 @@ require_once(__DIR__ . "/../lib/helpers.php");
 ?>
 
 <header>
-	<img src = "Images/piggybank.jpg" alt="Piggy Bank" height="80">
+	<a href="../Project/home.php"> <img src = "images/pixlr-bg-result.png" alt="Piggy Bank" height="100"> </a>
 	<h1> <em class="shadow">Simple Bank</em> </h1>
 </header>
 
