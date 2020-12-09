@@ -4,6 +4,25 @@ body {
     font-size: 1.5em;
 }
 
+header{
+    border-bottom: solid;
+    border-bottom-color: #931420;
+    padding-top: 1.5em;
+    text-align: center;
+    padding-bottom: 2em;
+    background: linear-gradient(30deg, #f6bb73 0%, #f6bb73 30%, white 50%, #f6bb73 80%, #f6bb73 100%);
+}
+
+header img {
+    float: left;
+    padding: 0 3.75%;
+}
+
+
+.shadow{
+	text-shadow: 2px 2px #800000;
+}
+
 ul[class="nav"]{
     list-style-type: none;
     margin: 0;
