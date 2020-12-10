@@ -1,4 +1,6 @@
+
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
+
 <?php
 if (!has_role("Admin")) {
     //this will redirect to login and kill the rest of this script (prevent it from executing)
@@ -6,6 +8,7 @@ if (!has_role("Admin")) {
     die(header("Location: login.php"));
 }
 ?>
+
 <?php
 $query = "";
 $results = [];
@@ -14,20 +17,9 @@ if (isset($_POST["query"])) {
 }
 if (isset($_POST["search"]) && !empty($query)) {
     $db = getDB();
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 17f21803f16709531dc8e70508ea66ad9fdd13d0
-    $stmt = $db->prepare("SELECT history.id, history.act_src_id, history.act_dest_id, history.amount, history.action_type, history.memo, Users.username 
+    $stmt = $db->prepare("SELECT history.id, history.act_src_id, history.act_dest_id, history.amount, history.action_type, history.memo, Users.username
 from Transactions as history JOIN Users on history.user_id = Users.id LEFT JOIN Accounts as account on history.act_src_id = account.id WHERE history.amount like :q LIMIT 10");
     $r = $stmt->execute([":q" => $query]);
-=======
-    $stmt = $db->prepare("SELECT history.id,history.amount,account.amount as account, Users.username from Transactions as history JOIN Users on history.user_id = Users.id LEFT JOIN Accounts as account on history.act_src_id = account.id WHERE history.amount like :q LIMIT 10");
-    $r = $stmt->execute([":q" => "%$query%"]);
-<<<<<<< HEAD
->>>>>>> 0a84ff8a2e27299bdd2417269c8cc41b542fa315
-=======
->>>>>>> 17f21803f16709531dc8e70508ea66ad9fdd13d0
     if ($r) {
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -36,34 +28,23 @@ from Transactions as history JOIN Users on history.user_id = Users.id LEFT JOIN 
     }
 }
 ?>
+
 <h3>List Transactions</h3>
 <form method="POST">
     <input name="query" placeholder="Search" value="<?php safer_echo($query); ?>"/>
     <input type="submit" value="Search" name="search"/>
 </form>
+
 <div class="results">
     <?php if (count($results) > 0): ?>
         <div class="list-group">
             <?php foreach ($results as $r): ?>
                 <div class="list-group-item">
-<<<<<<< HEAD
-<<<<<<< HEAD
-		    <div>
-=======
                     <div>
->>>>>>> 0a84ff8a2e27299bdd2417269c8cc41b542fa315
-=======
-		    <div>
-                    <div>
->>>>>>> 17f21803f16709531dc8e70508ea66ad9fdd13d0
                         <div>Amount:</div>
                         <div><?php safer_echo($r["amount"]); ?></div>
                     </div>
                     <div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 17f21803f16709531dc8e70508ea66ad9fdd13d0
                         <div>Account Source:</div>
                         <div><?php safer_echo($r["act_src_id"]); ?></div>
                     </div>
@@ -78,35 +59,14 @@ from Transactions as history JOIN Users on history.user_id = Users.id LEFT JOIN 
                     <div>
                         <div>Memo:</div>
                         <div><?php safer_echo($r["memo"]); ?></div>
-<<<<<<< HEAD
-=======
-                        <div>Account:</div>
-                        <div><?php safer_echo($r["account"]); ?></div>
->>>>>>> 0a84ff8a2e27299bdd2417269c8cc41b542fa315
-=======
-                        <div>Account:</div>
-                        <div><?php safer_echo($r["account"]); ?></div>
->>>>>>> 17f21803f16709531dc8e70508ea66ad9fdd13d0
                     </div>
                     <div>
                         <div>Owner:</div>
                         <div><?php safer_echo($r["username"]); ?></div>
                     </div>
                     <div>
-<<<<<<< HEAD
-<<<<<<< HEAD
                         <a type="button" href="test_edit_transaction.php?id=<?php safer_echo($r['id']); ?>">Edit</a>
                         <a type="button" href="test_view_transaction.php?id=<?php safer_echo($r['id']); ?>">View</a>
-=======
-                        <a type="button" href="test_edit_transactions.php?id=<?php safer_echo($r['id']); ?>">Edit</a>
-                        <a type="button" href="test_view_transactions.php?id=<?php safer_echo($r['id']); ?>">View</a>
->>>>>>> 0a84ff8a2e27299bdd2417269c8cc41b542fa315
-=======
-                        <a type="button" href="test_edit_transaction.php?id=<?php safer_echo($r['id']); ?>">Edit</a>
-                        <a type="button" href="test_view_transaction.php?id=<?php safer_echo($r['id']); ?>">View</a>
-                        <a type="button" href="test_edit_transactions.php?id=<?php safer_echo($r['id']); ?>">Edit</a>
-                        <a type="button" href="test_view_transactions.php?id=<?php safer_echo($r['id']); ?>">View</a>
->>>>>>> 17f21803f16709531dc8e70508ea66ad9fdd13d0
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -115,4 +75,3 @@ from Transactions as history JOIN Users on history.user_id = Users.id LEFT JOIN 
         <p>No results</p>
     <?php endif; ?>
 </div>
-
