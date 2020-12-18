@@ -28,8 +28,6 @@ if(isset($_POST["save"])){
 		$r = $stmt->execute([
 		":account_number"=>$account_number,
 		":account_type"=>$account_type,
-		":opened_date"=>$opened_date,
-		":last_updated"=>$last_updated,
 		":balance"=>$balance,
 		":id"=>$user_id
 	 ]);
